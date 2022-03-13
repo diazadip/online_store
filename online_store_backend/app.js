@@ -8,6 +8,8 @@ var app = express();
 
 //---------------------custom
 const productRouter = require('./app/product/router');
+const categoryRouter = require('./app/category/router');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +23,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //---------------------custom
 app.use('/api', productRouter);
+app.use('/api', categoryRouter);
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const Product = require('./model');
 const config = require('../config');
+
 async function store(req, res, next) {
     try {
         let payload = req.body;
