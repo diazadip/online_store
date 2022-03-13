@@ -8,6 +8,8 @@ const productController = require('./controller');
 // (3) pasangkan route endpoint dengan method `store`
 router.post('/products', multer({dest: os.tmpdir()}).single('image'),productController.store);
 router.get('/products', productController.index);
+router.put('/products/:id', multer({dest: os.tmpdir()}).single('image'),productController.update);
+router.delete('/products/:id', productController.destroy);
 
 // (4) export router
 module.exports = router;
