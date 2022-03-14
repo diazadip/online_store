@@ -9,6 +9,7 @@ var app = express();
 //---------------------custom
 const productRouter = require('./app/product/router');
 const categoryRouter = require('./app/category/router');
+const tagRouter = require('./app/tag/router');
 
 
 // view engine setup
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //---------------------custom
 app.use('/api', productRouter);
 app.use('/api', categoryRouter);
+app.use('/api', tagRouter);
 
 
 
