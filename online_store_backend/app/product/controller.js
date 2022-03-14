@@ -4,10 +4,22 @@ const Product = require('./model');
 const config = require('../config');
 const Category = require('../category/model');
 const Tag = require('../tag/model');
+const { policyFor } = require('../policy');
+
+
 
 
 async function store(req, res, next) {
     try {
+        let policy = policyFor(req.user);
+
+        if (!policy.can('create', 'Product')) {
+            return res.json({
+                error: 1,
+                message: `Anda tidak memiliki akses untuk membuat produk`
+            });
+        }
+
         let payload = req.body;
 
         if (payload.category) {
@@ -124,6 +136,14 @@ async function index(req, res, next) {
 
 async function update(req, res, next) {
     try {
+        let policy = policyFor(req.user);
+
+        if (!policy.can('update', 'Product')) {
+            return res.json({
+                error: 1,
+                message: `Anda tidak memiliki akses untuk mengupdate produk`
+            });
+        }
 
         let payload = req.body;
 
@@ -219,6 +239,15 @@ async function update(req, res, next) {
 
 async function destroy(req, res, next) {
     try {
+        let policy = policyFor(req.user);
+
+        if (!policy.can('delete', 'Product')) { // <-- can delete
+            return res.json({
+                error: 1,
+                message: `Anda tidak memiliki akses untuk menghapus produk`
+            });
+        }
+
         let product = await Product.findOneAndDelete({
             _id:
                 req.params.id
