@@ -12,6 +12,8 @@ const categoryRouter = require('./app/category/router');
 const tagRouter = require('./app/tag/router');
 const authRouter = require('./app/auth/router');
 const { decodeToken } = require('./app/auth/middleware');
+const wilayahRouter = require('./app/wilayah/router');
+const deliveryRouter = require('./app/delivery-address/router');
 
 
 // view engine setup
@@ -30,6 +32,8 @@ app.use('/api', categoryRouter);
 app.use('/api', tagRouter);
 app.use('/auth', authRouter);
 app.use(decodeToken());
+app.use('/api', wilayahRouter);
+app.use('/api', deliveryRouter);
 
 
 
