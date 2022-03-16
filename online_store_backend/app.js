@@ -15,6 +15,10 @@ const { decodeToken } = require('./app/auth/middleware');
 const wilayahRouter = require('./app/wilayah/router');
 const deliveryRouter = require('./app/delivery-address/router');
 const cartRouter = require('./app/cart/router');
+const orderRouter = require('./app/order/router');
+const invoiceRouter = require('./app/invoice/router');
+const cors = require('cors');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,10 +35,13 @@ app.use('/api', productRouter);
 app.use('/api', categoryRouter);
 app.use('/api', tagRouter);
 app.use('/auth', authRouter);
+app.use(cors());
 app.use(decodeToken());
 app.use('/api', wilayahRouter);
 app.use('/api', deliveryRouter);
 app.use('/api', cartRouter);
+app.use('/api', orderRouter);
+app.use('/api', invoiceRouter);
 
 
 
