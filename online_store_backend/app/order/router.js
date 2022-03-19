@@ -6,6 +6,5 @@ const orderController = require('./controller');
 // (3) _route_ untuk membuat `order`
 router.post('/orders', multer().none(), orderController.store);
 router.get('/orders', orderController.index);
-
 // (4) export `router`
 module.exports = router;

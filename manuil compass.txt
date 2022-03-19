@@ -1,0 +1,33 @@
+-- Membuat database baru
+use namadatabase
+
+-- Membuat collection baru
+db.createCollection("nama_koleksi")
+
+-- Membuat user baru
+db.createUser
+(
+    {
+        user: "online_store_admin",
+        pwd: "123456",
+        roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+    }
+)
+
+db.createUser(
+  {
+    user: "online_store_admin",
+    pwd:  "123456",   // or cleartext password
+    roles: [ { role: "readWrite", db: "online_store" }]
+  }
+)
+
+-- Menghapus user
+db.dropUser("online_store_admin")
+
+-- login
+db.auth("username","password")
+
+-- Mengaktifkan / Menstop Mongodb
+buka cmd as admin
+net start / stop mongodb
