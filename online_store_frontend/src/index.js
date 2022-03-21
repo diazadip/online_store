@@ -7,8 +7,8 @@ import MasterLayout from './pages/Home/Masterlayout';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <MasterLayout/>
+    <App />
+    {/* <MasterLayout/> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
