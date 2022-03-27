@@ -1,5 +1,6 @@
 import React from "react";
-function MasterLayout() {
+
+function SideBar(props) {
     return (
         <div className="flex flex-no-wrap">
             {/* Sidebar starts */}
@@ -26,12 +27,10 @@ function MasterLayout() {
             {/* Sidebar ends */}
             {/* Remove class [ h-64 ] when adding a card block */}
             <div className="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
-                {/* Remove class [ border-dashed border-2 border-gray-300 ] to remove dotted border */}
-                <div className="w-full h-full rounded border-dashed border-2 border-gray-300">{/* Place your content here */}</div>
-                    <h1>kintin</h1>
+                    {props.isi}
             </div>
         </div>
     );
 }
 
-export default MasterLayout;
+export default SideBar;
