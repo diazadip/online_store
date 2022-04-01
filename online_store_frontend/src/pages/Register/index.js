@@ -1,12 +1,56 @@
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { rules } from './validation';
+import { registerUser } from '../../api/auth';
+
+const statuslist = {
+    idle: 'idle',
+    process: 'process',
+    success: 'success',
+    error: 'error',
+}
 
 export default function Register() {
     let { register, handleSubmit, formState: { errors }, setError } = useForm();
 
+    let [status, setStatus] = React.useState(statuslist.idle);
+
     const onSubmit = async formData => {
-        alert(JSON.stringify(formData));
+        console.log(formData)
+        // (1) dapatkan variabel password dan password_confirmation
+        let { password, password_confirmation } = formData;
+        console.log(password);
+        console.log(password_confirmation);
+        // (2) cek password vs password_confirmation
+        if (password !== password_confirmation) {
+            return setError('password_confirmation', {
+                type: 'equality',
+                message: 'Konfirmasi password harus dama dengan password'
+            });
+        }
+
+        setStatus(statuslist.process);
+
+        let { data } = await registerUser(formData);
+
+        if (data.error) {
+            // (2) dapatkan field terkait jika ada errors
+            let fields = Object.keys(data.fields);
+            // (3) untuk masing-masing field kita terapkan error dan tangkap pesan errornya
+            fields.forEach(field => {
+                setError(field, {
+                    type: 'server', message:
+                        data.fields[field]?.properties?.message
+                })
+            });
+
+            setStatus(statuslist.error);
+            return;
+        }
+
+        setStatus(statuslist.success);
+
+        window.location = "/"
     }
 
     return (
@@ -33,9 +77,9 @@ export default function Register() {
                             aria-describedby="emailHelp123"
                             placeholder="Nama Lenkap"
                             name="full_name"
-                            {...register("validation_fullname", rules.full_name)}
+                            {...register("full_name", rules.full_name)}
                         />
-                        <p>{errors.validation_fullname?.message}</p>
+                        <p>{errors.fullname?.message}</p>
                     </div>
                     <div className="form-group mb-6">
                         <input type="email" className="form-control block
@@ -55,9 +99,9 @@ export default function Register() {
                             id="exampleInput125"
                             placeholder="Email address"
                             name="email"
-                            {...register("validation_email", rules.email)}
+                            {...register("email", rules.email)}
                         />
-                        <p>{errors.validation_email?.message}</p>
+                        <p>{errors.email?.message}</p>
                     </div>
                     <div className="form-group mb-6">
                         <input type="password" className="form-control block
@@ -77,9 +121,9 @@ export default function Register() {
                             id="exampleInput126"
                             placeholder="Password"
                             name="password"
-                            {...register("validation_password", rules.password)}
+                            {...register("password", rules.password)}
                         />
-                        <p>{errors.validation_password?.message}</p>
+                        <p>{errors.password?.message}</p>
                     </div>
                     <div className="form-group mb-6">
                         <input type="password" className="form-control block
@@ -98,10 +142,10 @@ export default function Register() {
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             id="exampleInput126"
                             placeholder="Konfirmasi Password"
-                            name="confirmation_password"
-                            {...register("validation_confirmation_password", rules.password_confirmation)}
+                            name="password_confirmation"
+                            {...register("password_confirmation", rules.password_confirmation)}
                         />
-                        <p>{errors.validation_confirmation_password?.message}</p>
+                        <p>{errors.password_confirmation?.message}</p>
                     </div>
                     <button type="submit" className="
                         w-full
@@ -121,7 +165,8 @@ export default function Register() {
                         transition
                         duration-150
                         ease-in-out">
-                        Sign up
+                        
+                        {status === statuslist.process ? "Sedang memproses" : "Sign Up"}
                     </button>
                 </form>
             </div>

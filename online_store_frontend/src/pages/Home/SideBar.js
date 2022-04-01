@@ -2,6 +2,7 @@ import React from "react";
 
 function SideBar(props) {
     return (
+        <>
         <div className="flex flex-no-wrap">
             {/* Sidebar starts */}
             {/* Remove class [ hidden ] and replace [ sm:flex ] with [ flex ] */}
@@ -30,6 +31,7 @@ function SideBar(props) {
                     {props.isi}
             </div>
         </div>
+        </>
     );
 }
 

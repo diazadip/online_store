@@ -10,13 +10,13 @@ export default function CarouselComp() {
     return (
         <Carousel showThumbs = {false} showStatus = {false} autoPlay = {true} infiniteLoop = {true}>
             <div>
-                <img src={Carousel1} className='max-h-52'/>
+                <img src={Carousel1} alt='carousel' className='max-h-52'/>
             </div>
             <div>
-                <img src={Carousel2} className='max-h-52'/>
+                <img src={Carousel2} alt='carousel' className='max-h-52'/>
             </div>
             <div>
-                <img src={Carousel3} className='max-h-52'/>
+                <img src={Carousel3} alt='carousel' className='max-h-52'/>
             </div>
         </Carousel>
     );

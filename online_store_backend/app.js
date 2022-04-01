@@ -6,6 +6,10 @@ var logger = require('morgan');
 
 var app = express();
 
+var corsOptions = {
+  origin: 'http://localhost:3000'
+}
+
 //---------------------custom
 const productRouter = require('./app/product/router');
 const categoryRouter = require('./app/category/router');
@@ -31,6 +35,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //---------------------custom
+app.use(cors(corsOptions));
+
 app.use('/api', productRouter);
 app.use('/api', categoryRouter);
 app.use('/api', tagRouter);
@@ -47,12 +53,12 @@ app.use('/api', invoiceRouter);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
