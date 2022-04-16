@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { fetchCategories } from '../../features/Categories/actions';
 
 function SideBar(props) {
-    const [categories, setCategories] = useState([])
+    let dispatch = useDispatch();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios.get(`${process.env.REACT_APP_API_HOST}/api/categories`)
+    let categories = useSelector(state => state.categories);
 
-            setCategories(result.data.map(x => { return x.name }))        
-        }
-        fetchData()
-    }, [])
+    React.useEffect(() => {
+        dispatch(fetchCategories());
+    }, [dispatch])
 
+    console.log(categories)
+    
     return (
         <>
             <div className="flex flex-no-wrap">
                 <div className="w-64 absolute sm:relative bg-gray-800 shadow md:h-full flex-col justify-between hidden sm:flex">
                     <div className="px-8">
                         <ul className="mt-12">
-                            {categories === undefined ? 'iya' :
-                                categories.map((categories, index) => {
+                            {categories.data.map((categories, index) => {
                                     return <p key={index}>{categories}</p>
                                 })
                             }

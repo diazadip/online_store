@@ -9,18 +9,9 @@ import Login from './pages/Login';
 import Header from './pages/Home/Header';
 import SideBar from './pages/Home/SideBar';
 import Footer from './pages/Home/Footer';
+import Product from './pages/Product';
 
 import { listen } from './app/listener';
-
-function Kinthil() {
-  return (
-    <>
-      <h1>isi dari Perops</h1>
-      tytyd kuwda
-    </>
-  )
-
-}
 
 function App() {
   React.useEffect(() => {
@@ -36,7 +27,7 @@ function App() {
             <Route path="/login" element={<><Header /><SideBar isi={<Login />}/><Footer /></>} />
             {/* <Route path="/login" element={<Login />} /> */}
 
-            <Route path="/" element={<><Header /><SideBar isi={Kinthil()} /><Footer /></>} />
+            <Route path="/" element={<><Header /><SideBar isi={<Product />} /><Footer /></>} />
           </Routes>
         </Router>
       </div>
